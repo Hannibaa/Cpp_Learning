@@ -43,3 +43,14 @@
 *.idb
 *.iobj
 *.ipdb
+/.vs/Cpp_Learning/FileContentIndex
+/.vs/Cpp_Learning/v17/ipch/AutoPCH
+/.vs/Cpp_Learning/v17/Browse.VC.opendb
+/.vs/Cpp_Learning/v17/Browse.VC.db-wal
+/.vs/Cpp_Learning/v17/Browse.VC.db-shm
+/.vs/Cpp_Learning/v17/Browse.VC.db
+/.vs/Cpp_Learning/v17/.suo
+/Cpp_Learning/x64/Release/_IsIncrementalBuild
+/Cpp_Learning/x64/Release
+/Cpp_Learning/x64/Debug/_IsIncrementalBuild
+/Cpp_Learning/x64/Debug
