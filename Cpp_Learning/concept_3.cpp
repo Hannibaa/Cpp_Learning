@@ -20,21 +20,24 @@ void PushBack(Container& c,const T& value) {
 
 template<typename Container, typename T>
 void PushBack2(Container& c, const T& value) {
-	if constexpr (HasPushBack2<decltype(c)>) {
+	if constexpr (HasPushBack2<std::remove_cvref_t<decltype(c)>>) { // here also
+		c.push_back(value);                                         // remove ref
+	}
+	else
+		c.insert(value);
+}
+
+template<typename Container, typename T>            // probleme with HasPushBack3 and 2.
+void PushBack3(Container& c, const T& value) {      // probleme fixed to remove reference cv.
+	if constexpr (HasPushBack3<std::remove_cvref_t<decltype(c)>>) {
 		c.push_back(value);
 	}
 	else
 		c.insert(value);
 }
 
-template<typename Container, typename T>  // probleme with HasPushBack3 and 2.
-void PushBack3(Container& c, const T& value) {
-	if constexpr (HasPushBack3<decltype(c)>) {
-		c.push_back(value);
-	}
-	else
-		c.insert(value);
-}
+template<typename Container,typename T>
+using vec_func = std::vector<void(*)(Container&, const T&)>;
 
 
 int main()
@@ -47,13 +50,15 @@ int main()
 
 	std::string::value_type k{};
 
+	vec_func<std::string,char>  v{ &PushBack2<std::string,char>};
+
 	// test all container for have push back or no
-	push_back(str, 'A'); str.push_back('B'); PushBack(str,'C');
-	//PushBack3(str, 'D');
+	push_back(str, 'A'); str.push_back('B'); PushBack(str, 'C'); PushBack2(str, 'D');
+	PushBack3(str, 'D');
 	push_back(c_string, "hello"); c_string.push_back(" world"); PushBack(c_string," !.");
 	PushBack(c_string, " end");
 	push_back(vec_int, 23); vec_int.push_back(40); PushBack(vec_int,40);
-	//PushBack3(vec_int, 500);
+	PushBack3(vec_int, 500);
 	push_back(set_float, 4.5f); set_float.insert(6.77f); PushBack(set_float,4.5f);
 	push_back(mset_int, 2000); mset_int.insert(2000); PushBack(mset_int,3000);
 	PushBack2(mset_int, 4000);
