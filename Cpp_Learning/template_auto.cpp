@@ -22,6 +22,12 @@ list<decltype(vals)...> list_of() { return {}; }
 template<auto val,typename T>
 constexpr bool is_same_type() { return std::is_same_v<decltype(val), T>; }
 
+template<auto val,typename T>
+bool is_same_type_notconstexpr() { return std::is_same_v<decltype(val), T>; }
+
+template<auto val>
+constexpr bool is_same_val(auto x) { return std::is_same_v<decltype(val), decltype(x)>; }
+
 
 template<decltype(auto) N,typename T0>
 struct thisthis{};
