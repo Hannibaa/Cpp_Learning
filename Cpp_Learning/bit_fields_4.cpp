@@ -51,13 +51,16 @@ public:                                                                    \
 }                                                                          \
 
 
-#define TYPE(name, Type, N)    struct  name {          \
-                         Type i : N;                   \
-                         Type ci : 8*sizeof(Type) - N; \
-                         operator Type () {            \
-                         return i;                     \
-                         }                             \
-}                                                      \
+#define TYPE(name, Type, N)    struct  name {                              \
+                         Type i : N;                                       \
+                         Type ci : 8*sizeof(Type) - N;                     \
+                         name(const Type& _t) {                   \
+                             return std::bit_cast<name>(_t);               \
+		                 }                                                 \
+                         operator Type () {                                \
+                         return i;                                         \
+                         }                                                 \
+}                                                                          \
 
 
 TYPE(i2,unsigned int, 2) ;
