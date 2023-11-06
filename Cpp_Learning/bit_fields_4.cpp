@@ -8,6 +8,7 @@ using namespace std::string_literals;
 	author : KADDA Aoues
 	example of bit field and template<> and structure
 	we name this file version 2;
+	Using Macro to define a new type
 
 */
 
@@ -66,7 +67,7 @@ public:                                                                    \
 TYPE(i2,unsigned int, 2) ;
 TYPE(i1,unsigned int, 1) ;
 
-i2 iii{ 0b1111'1110 }; ;
+i2 iii{ 0b1111'1110 }; 
 i1 ii{0b0101};
 
 template<size_t N>
