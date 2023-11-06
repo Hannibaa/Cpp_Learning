@@ -56,3 +56,4 @@
 /Cpp_Learning/x64/Debug
 /Cpp_Learning/Debug/_IsIncrementalBuild
 /.vs/Cpp_Learning/v17/.wsuo
+*.json
