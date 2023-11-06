@@ -89,8 +89,6 @@ int main() {
 	print_ << "value of whole number " << i4.whole() << end_;
 
 
-
-
 	std::cin.get();
 	return 0;
 }
