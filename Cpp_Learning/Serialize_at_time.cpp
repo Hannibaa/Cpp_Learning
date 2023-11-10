@@ -13,9 +13,9 @@ using namespace std::literals;
 
 int main()
 {
-	auto time_serial = to_day::get_serial_at_time();
+	auto time_serial = Time::get_serial_at_time();
 
-	auto normal_time = ToDay::String();
+	auto normal_time = Time::ToDay::String();
 
 	Print_(color::Green, "first attempt: ") << end_;
 	Print_(color::Red, time_serial) << end_;
@@ -33,7 +33,7 @@ int main()
 
 	for (int i = 0; i < 10; ++i) {
 		std::this_thread::sleep_for(10ms); // we need some operation to be valid for map and multimap.
-		file_serialized[ToDay::String()] = current_path.string() + "_"s + to_day::get_serial_at_time();
+		file_serialized[Time::ToDay::String()] = current_path.string() + "_"s + Time::get_serial_at_time();
 	}
 
 	// if we want to serailize some files so :
