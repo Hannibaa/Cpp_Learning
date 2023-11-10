@@ -15,7 +15,7 @@ int main()
 {
 	auto time_serial = Time::get_serial_at_time();
 
-	auto normal_time = Time::ToDay::String();
+	auto normal_time = Time::ToDay::String(); 
 
 	Print_(color::Green, "first attempt: ") << end_;
 	Print_(color::Red, time_serial) << end_;
@@ -32,15 +32,15 @@ int main()
 	Print_(color::Red, current_path) << end_;
 
 	for (int i = 0; i < 10; ++i) {
+		file_serialized.insert(Time::ToDay::String(),  current_path.string() + "_"s + Time::get_serial_at_time());
 		std::this_thread::sleep_for(10ms); // we need some operation to be valid for map and multimap.
-		file_serialized[Time::ToDay::String()] = current_path.string() + "_"s + Time::get_serial_at_time();
 	}
 
 	// if we want to serailize some files so :
 
 	// print the resulte;
-
-	vu::print_map("this map for timing and serializing file", file_serialized);
+	print_ << "Print the value of multimap : " << end_;
+	vu::print_map("this map for timing and serializing file : ", file_serialized);
 
 
 	std::cin.get();
