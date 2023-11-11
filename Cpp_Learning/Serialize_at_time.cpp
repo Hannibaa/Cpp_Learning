@@ -10,6 +10,20 @@
 
 using namespace std::literals;
 
+std::vector<std::string> make_timename_filepaths(const std::string& _name, int _number) {
+
+	auto current_path = fs::current_path();
+
+	std::vector<std::string> vec_filenames{};
+
+	for (int i = 0; i < _number; ++i) {
+		vec_filenames.emplace_back(current_path.string() + "\\" + _name + "_" +
+			                        Time::get_serial_at_time() + "_" + std::to_string(i));
+	}
+
+	return vec_filenames;
+}
+
 
 int main()
 {
@@ -32,8 +46,8 @@ int main()
 	Print_(color::Red, current_path) << end_;
 
 	for (int i = 0; i < 10; ++i) {
-		file_serialized.insert(Time::ToDay::String(),  current_path.string() + "_"s + Time::get_serial_at_time());
-		std::this_thread::sleep_for(10ms); // we need some operation to be valid for map and multimap.
+		file_serialized.insert(std::make_pair(Time::ToDay::String(),  current_path.string() + "\\_"s + Time::get_serial_at_time()));
+		std::this_thread::sleep_for(1001ms); // we need some operation to be valid for map and multimap.
 	}
 
 	// if we want to serailize some files so :
@@ -42,6 +56,15 @@ int main()
 	print_ << "Print the value of multimap : " << end_;
 	vu::print_map("this map for timing and serializing file : ", file_serialized);
 
+
+	wait_;
+	print_ << ERASESCREEN; 
+
+	Print_(color::Green, "test a making vector") << end_;
+
+	auto vec_files = make_timename_filepaths("hello", 6);
+
+	for (auto& f : vec_files) print_ << f << end_;
 
 	std::cin.get();
 	return 0;
