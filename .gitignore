@@ -57,3 +57,5 @@
 /Cpp_Learning/Debug/_IsIncrementalBuild
 /.vs/Cpp_Learning/v17/.wsuo
 *.json
+/Cpp_Learning/aLL_examples_old.h
+/Cpp_Learning/meta_programming.h
