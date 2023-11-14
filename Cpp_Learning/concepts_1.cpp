@@ -1,13 +1,13 @@
 #include <iostream>
 #include <string>
-#include "my_concepts.h"
-#include "c:\Users\Acer\source\MyLib/Console_Library/escape_code.h"
+#include "MyLib/headers/my_concepts.h"
+#include "MyLib/Console_Library/escape_code.h"
 
 using namespace std::literals;
 
 
 template<typename T>
-requires Post_Incrementable<T>
+requires Concept::Post_Incrementable<T>
 struct Point {
 	T x, y;
 	Point() :x{}, y{}{}
@@ -18,7 +18,7 @@ struct Point {
 
 
 template<typename T, size_t N>
-	requires SizeOf<T,4>
+	requires Concept::SizeOf<T,4>
 T inc_function() {
 	static T i{};
 	return i++;

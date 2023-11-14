@@ -6,15 +6,15 @@
 
 
 template<typename ...Args>
-constexpr std::enable_if_t<are_same_v<Args...>, first_arg_t<Args...>>
+constexpr std::enable_if_t<Concept::are_same_v<Args...>, Concept::first_arg_t<Args...>>
 Add(Args&&...args) noexcept
 {
 	return (... + args);
 }
 
 template<typename...Args>
-requires Addable<Args...>
-first_arg_t<Args...> Add_(Args&&...args) noexcept
+requires Concept::Addable<Args...>
+Concept::first_arg_t<Args...> Add_(Args&&...args) noexcept
 {
 	return (... + args);
 }
