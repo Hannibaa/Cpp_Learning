@@ -35,8 +35,11 @@ int main()
 	print_ << "new size " << vv.size() << end_;
 	vu::print_container(vv, "vector after insertion vv :"); newline_;
 
-	//vv.insert(vv.begin() + 4, { -1,-2,-3 });
-	//vu::print_container(vv, "vector vv :"); newline_;
+	// insert at end
+
+	vv.insert(vv.end(), {-4,-5,-6});
+	print_ << "new size " << vv.size() << end_;
+	vu::print_container(vv, "vector insert at end vv :"); newline_;
 
 
 
