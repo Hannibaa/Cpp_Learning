@@ -54,6 +54,11 @@ int main()
 
 	vu::print_container(v_int, "vector int : ");
 
+	// using insert function on C array 
+
+	v_int.insert(v_int.end(), pint, pint + 5);
+
+	vu::print_container(v_int, "vector int after insert : ");
 
 	std::cin.get();
 	return 0;
