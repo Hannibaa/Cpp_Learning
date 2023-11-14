@@ -6,6 +6,7 @@
 
 /*
          testing of std::copy and insert member function in vector
+		 we also try to construct by insertion of c-array.
 */
 
 int main()
@@ -41,7 +42,17 @@ int main()
 	print_ << "new size " << vv.size() << end_;
 	vu::print_container(vv, "vector insert at end vv :"); newline_;
 
+	cls();
 
+	// Insert C - Array to vector . it work
+
+	Print_(color::Green, "trying to insert C-array by construction of vector") << end_;
+
+	int* pint = new int[10] {0, 1, 2, 3, 4, 5, 6, 7, 8, 9};
+
+	std::vector<int> v_int(pint,pint+9);
+
+	vu::print_container(v_int, "vector int : ");
 
 
 	std::cin.get();
