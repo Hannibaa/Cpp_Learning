@@ -1,8 +1,7 @@
 #include <iostream>
+#include <MyLib/Console_Library/escape_code.h>
 #include "print_pack_names.hpp"
 
-#define end '\n'
-#define Line cout << "---------------------------------------------\n"
 
 using namespace std;
 
@@ -50,15 +49,17 @@ float f(int x) { return (float)x; }
 int main()
 {
 
-	printValue(20, 'a', "that"s, "Here"s); Line;
-	printValue2(20, 'a', "that"s); Line;
+	printValue(20, 'a', "that"s, "Here"s); newline_;
+	printValue2(20, 'a', "that"s); newline_;
 	printValue3(400, 'c', "Here"s);
 	//printPackName(&printValue<int,bool>);
-	Line;
+	newline_;
 	printPackNames(20, 'a', "that", L"", L"t"s);
-	Line;
+	newline_;
+	print_ << "print types of class string : " << end_;
 	printPackNames(string());
-	Line << end;
+
+	newline_;
 
 	int i = (f(78), 5);
 
