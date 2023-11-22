@@ -15,6 +15,8 @@ int main()
 	fs::path file_name_jason = "C:\\Users\\Acer\\source\\Course C++\\Cpp_Learning\\Cpp_Learning\\glsl_snippets.json";
 	fs::path file_snippet = "C:\\Users\\Acer\\source\\MyCodeSnippets\\Test1.snippet";
 
+	fs::path snippet_folder = "C:\\Users\\Acer\\source\\MyCodeSnippets";
+
 	auto text = Str::LoadFileToString(file_snippet);
 
 	Print_(color::Green, "snippet file : ") << end_;
@@ -22,40 +24,6 @@ int main()
 	wait_;
 	// clear screen.
 	esc::cls();
-
-	//remove_comment_json(text);
-
-	/*std::string text(R"(<?xml version="1.0" encoding="utf-8" ?>
-<CodeSnippets  xmlns="http://schemas.microsoft.com/VisualStudio/2005/CodeSnippet">
-	<CodeSnippet Format="1.0.0">
-		<Header >
-			<Title>exemple for snippets</Title>
-			<Shortcut>test<  / Shortcut>
-			<Description>minimum code to write program</Description>
-			<Author>Aoues Kadda< /  Author >
-			<    SnippetTypes   >
-				<SnippetType>Expansion</SnippetType>
-				<SnippetType>SurroundsWith</   SnippetType>
-			</SnippetTypes>
-		</Header>
-		<Snippet>
-
-			<Code Language="cpp">
-				<![CDATA[cout << "hello world \n";]]>
-			< /    Code>
-		<     /                 Snippet>
-	</CodeSnippet         >
-<               /CodeSnippets>)");*/
-
-
-	// checking remove_char_str
-	/*
-	std::string str = "hello     < /.  is th er";
-	print_ << str.size() << "|" << str << end_;
-	str = remove_char(str, 10,  14, ' ');
-	print_ << str.size() << "|" << str << end_;
-	return 89;                                      */
-
 
 
 	// trait of code and remove any space from tags; // not good
@@ -86,3 +54,38 @@ int main()
 	std::cin.get();
 	return 0;
 }
+
+
+
+//remove_comment_json(text);
+
+	/*std::string text(R"(<?xml version="1.0" encoding="utf-8" ?>
+<CodeSnippets  xmlns="http://schemas.microsoft.com/VisualStudio/2005/CodeSnippet">
+	<CodeSnippet Format="1.0.0">
+		<Header >
+			<Title>exemple for snippets</Title>
+			<Shortcut>test<  / Shortcut>
+			<Description>minimum code to write program</Description>
+			<Author>Aoues Kadda< /  Author >
+			<    SnippetTypes   >
+				<SnippetType>Expansion</SnippetType>
+				<SnippetType>SurroundsWith</   SnippetType>
+			</SnippetTypes>
+		</Header>
+		<Snippet>
+
+			<Code Language="cpp">
+				<![CDATA[cout << "hello world \n";]]>
+			< /    Code>
+		<     /                 Snippet>
+	</CodeSnippet         >
+<               /CodeSnippets>)");*/
+
+
+// checking remove_char_str
+/*
+std::string str = "hello     < /.  is th er";
+print_ << str.size() << "|" << str << end_;
+str = remove_char(str, 10,  14, ' ');
+print_ << str.size() << "|" << str << end_;
+return 89;                                      */
