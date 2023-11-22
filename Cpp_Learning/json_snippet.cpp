@@ -6,6 +6,20 @@
 		 loading file and using json functions
 */
 
+void generate_snippet_files_from_json(const fs::path json_file, const fs::path& folder) {
+
+	std::string json = File::loadFileToString(json_file);
+	auto v_si = xml::json_get_SnippetInfo(json);
+
+	std::string ext = ".snippet";
+
+	for (auto& si : v_si) {
+		fs::path file = folder.string() + "\\" + si._name + ext;
+		auto text = xml::make_quicksnippet_code(si);
+		File::saveStringToFile(text, file);
+	}
+
+}
 
 
 int main()
@@ -15,31 +29,20 @@ int main()
 	fs::path file_saved1 = File::name_same_path_extension(file_snippet, "snip_1");
 	fs::path file_saved2 = File::name_same_path_extension(file_snippet, "snip_2");
 
-	std::string body0(R"("for(int $2 = 0; $2 < $3; $2++){",
-                	  "\t",
-                       "}")");
 
-	std::string body("continue;");
-
-     print_ << "body before process : " << end_;
-     print_ <<"[" << body << "]" << end_; 
-	 wait_;
-
-     body = xml::snippet_process_body_(body);
-     print_ << "body after process : " << end_;
-     print_ << "[" << body << "]" << end_;
-
-
-
-
-	return 10;
+	
 
 	auto text = File::loadFileToString(file_name_json);
 
-	auto vSinfo = xml::json_get_SnippetInfo(text);
+	auto v = xml::json_get_SnippetInfo(text);
 
-	print_ << "number of operation " << vSinfo.size() << end_;
+	print_ << "number of operation " << v.size() << end_;
 
+
+	for (auto& si : v) {
+		xml::print_snippetInfo(si);
+		//wait_;
+	}
 
 	std::cin.get();
 	return 0;
@@ -76,3 +79,24 @@ int main()
 //si._body = xml::snippet_process_body_(si._body);
 //print_ << "body after process : " << end_;
 //print_ << "[" << si._body << "]" << end_;
+
+
+
+
+
+
+/*std::string body0(R"("for(int $2 = 0; $2 < $3; $2++){",
+					  "\t",
+					   "}")");
+
+	std::string body("continue;");
+
+	print_ << "body before process : " << end_;
+	print_ << "[" << body << "]" << end_;
+	wait_;
+
+	body = xml::snippet_process_body_(body);
+	print_ << "body after process : " << end_;
+	print_ << "[" << body << "]" << end_;
+
+	return 20;*/
