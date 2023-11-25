@@ -13,11 +13,11 @@
 
 int main() {
 
-    std::cout << "to day is " << ToDay::date() << end_;
+    std::cout << "to day is " << Time::ToDay::date() << end_;
 
-    std::cout << "day name is " << ToDay::day_name() << end_;
+    std::cout << "day name is " << Time::ToDay::day_name() << end_;
 
-    std::cout << "hour is : " << ToDay::hour() << end_;
+    std::cout << "hour is : " << Time::ToDay::hour() << end_;
 
 
     std::cin.get();
