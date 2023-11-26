@@ -9,15 +9,15 @@
        struct tm* localtime(const time_t* timer);
 
 	   struct tm {
-              int tm_sec;
-              int tm_min
-              int tm_hour;
-              int tm_mday;
-              int tm_mon;
-              int tm_year;
-              int tm_wday;
-              int tm_yday;
-              int tm_isdst;
+              int tm_sec;   seconds of minutes from 0 to 61
+              int tm_min    minutes of hour from 0 to 59
+              int tm_hour;  hours fo day from 0 to 23
+              int tm_mday;  day of month from 1 to 31
+              int tm_mon;   month of year c
+              int tm_year;  year since 1900
+              int tm_wday;  days since Sunday from 0 to 6
+              int tm_yday;  days since January 1st from 0 to 365
+              int tm_isdst; hours of daylight savings time
               };
 
               #define CLOCKS_PER_SEC  //  implementation defined
