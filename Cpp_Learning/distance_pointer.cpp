@@ -1,6 +1,7 @@
 #include <iostream>
 #include "MyLib/Console_Library/escape_code.h"
 
+// todo make header lib file for manipulating pointer .
 // distance between two pointer
 template<typename P, typename Q>
 int64_t ptr_diff(void* p, void* q) {
