@@ -12,7 +12,7 @@ using namespace std::string_literals;
 
 */
 
-
+// todo rewrite in bit_utility header file all these functions
 #define   Field(Part_of)        template<typename T, size_t N>             \
 	requires (8 * sizeof(T) > N) && std::is_trivially_copyable_v<T>        \
 struct  Part_of {                                                          \
