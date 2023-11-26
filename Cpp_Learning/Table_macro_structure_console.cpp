@@ -56,20 +56,22 @@ int main()
 	t1._sep0 = '|';
 	t1._sep1 = '|';
 
-	TITLE t2( "    Number" , 12, 234, 30 , (char)0 , '|' );
-	TITLE t3;
-	t3._bgcolor = bg_color(236);
-	t3._fgcolor = fg_color(12);
-	t3._name = "  ROP ";
-	t3._width = 15;
-	t3._sep0 = '|';
-	t3._sep1 = '|';
+	TitleConstructor(t2,Number , 12, 234, 30 , 0 , '|' )
 
-	TitleConstructor(t4, WOB, 239, 3, 10,'|','|')
+	TitleConstructor(t3,ROP,236,12,15,'|','|')
+
+	TitleConstructor(t4, WOB, 239, 3, 10,0,0)
 
 	print_ << _cell(t1, left) << _cell(t1,right) << _cell(t4,right) 
-		   << _cell(t3, left) <<  end_;
+		   << _cell(t3, left) << _cell(t2,right) << end_;
 
+	print_ << "extended ascii " << end_;
+
+	for (int c = 0; c < 256; ++c)
+	{
+		print_ << c << "|||" << char(c) << "||" << (unsigned char)c << end_;
+		if (c % 30 == 0) wait_;
+	}
 
 
 	std::cin.get();
