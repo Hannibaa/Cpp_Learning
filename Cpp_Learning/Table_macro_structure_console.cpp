@@ -1,35 +1,56 @@
 #include <iostream>
-#include "MyLib/Console_Library/escape_code.h"
 #include "MyLib/Console_Library/tables.h"
 
+#define printm_(x,y)   print_ << MOVETO(x,y)
 
+std::string add_line(int x, int y, table::STYLE s, table::STYLE s_last) {
+	std::stringstream ss;
+
+	ss << UNDERLINE << _cell(std::to_string(x), s, right);
+	ss << UNDERLINE << _cell(std::to_string(y), s_last, left);
+	ss << end_;
+
+	return ss.str();
+}
 
 int main()
 {
+	const char solid_left     = '\xdd';
+	const char solid_right    = '\xde';
+	const char solid_complete = '\xdb';
+	const char solid_up       = '\xdf';
+	const char solid_down     = '\xdc';
+	const char solid_center   = '\xfe';
 
-	    CellCtor(t1, Depth, 240, 9, 15, '|', '|')
+	table::STYLE s_title = table::make_style(color::Fuchsia, color::Grey15, 41, 
+		table_vline, table_vline);
+	table::STYLE s = table::make_style(color::Aqua, color::Grey23, 20, table_vline, 0);
+	table::STYLE s_last = table::make_style(color::Aqua, color::Grey23, 20, table_vline, table_vline);
+	
 
-		CellCtor(t2, Number, 12, 234, 30, 0, '|')
+	
 
-		CellCtor(t3, ROP, 236, 12, 15, '|', '|')
+	std::string name1 = "editor";
+	std::string name2 = "Names";
 
-		CellCtor(t4, WOB, 239, 3, 10, 0, 0)
+	//print_ << Cell_text(name1, s, left) << end_;
+	print_ << UNDERLINE << _cell("            value of function ", s_title, left) << end_;
+	print_ << UNDERLINE << _cell("coord x ", s, right); 
+	print_ << UNDERLINE << _cell("coord y ", s_last, left);
+	print_ << end_;
 
-		print_ << _cellr('|', bg_color(234), fg_color(22), 73, left,
-			         "             Exemple table of drilling parameter", '|') << end_;
-
-	print_ << UNDERLINE << _cell(t1, left) << UNDERLINE << _cell(t2,right) 
-		   << UNDERLINE << _cell(t3, left) << UNDERLINE << _cell(t4,right) << end_;
-
-	const char b = '|';
-
-	for (int i = 0; i < 20; ++i) {
-		print_ << UNDERLINE << _cellr(b, t1._fgcolor, t1._bgcolor, t1._width, left, i, '|') 
-			   << UNDERLINE << _cellv(t2, left, i*i) 
-			   << UNDERLINE << _cellv(t3, left, float(3.f*i/5.f))
-			   << UNDERLINE << _cellv(t4, left, 5*i -2)
-			   << end_;
+	for (int i = 0; i < 10; ++i) {
+		print_ << table::add_line_table(i, s, 3*i , s_last);
 	}
+
+	print_ << SAVECURSORPOSITION;
+	printm_(70, 1) << "New value x : "; int ii;
+	std::cin >> ii;
+	printm_(70, 2) << "New value y : "; int jj;
+	std::cin >> jj;
+	print_ << RESTORCUR_SAVED_POS;
+
+	print_ << table::add_line_table(ii, s, jj, s_last);
 
 
 	std::cin.get();
