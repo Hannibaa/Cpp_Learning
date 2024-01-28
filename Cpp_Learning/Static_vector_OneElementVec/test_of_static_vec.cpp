@@ -9,10 +9,10 @@ void get_info_vector(const Vector& vec, const std::string_view comment = "") {
 	Print_(color::Green, "--------------------------------------------") << end_;
 	Print_(color::Fuchsia, comment) << end_;
 	Print_(color::Green, "--------------------------------------------") << end_;
-
-	Print_(color::Green, "capacity : ") << vec.capacity() << end_;
-	Print_(color::Green, "size     : ") << vec.size() << end_;
-	Print_(color::Green, "max size : ") << vec.max_size() << end_;
+	  
+	Print_(color::Green, "capacity   : ") << vec.capacity() << end_;
+	Print_(color::Green, "size       : ") << vec.size() << end_;
+	Print_(color::Green, "max size   : ") << vec.max_size() << end_;
 	Print_(color::Green, "value type : ") << typeid(typename Vector::value_type).name() << end_;
 	Print_(color::Green, "--------------------------------------------") << end_;
 
