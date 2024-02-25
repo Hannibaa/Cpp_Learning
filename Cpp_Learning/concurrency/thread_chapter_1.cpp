@@ -13,6 +13,8 @@ std::chrono::sys_seconds date = std::chrono::floor<std::chrono::seconds>(now_tim
 
 bool stop = false;
 
+#define ERASE_AT(x,y)      synprint_ << MOVETO(x, y) << ERASELINE
+
 // stoper function that change the stat of stop to true if pressed some char
 
 void thread_stoper(char c = 'q') {
@@ -28,7 +30,219 @@ void thread_stoper(char c = 'q') {
 	t.detach();
 }
 
-#define EXEMPLE6
+#define EXEMPLE9
+
+
+#ifdef EXEMPLE9
+
+void make_string(std::string& str, int length) {
+	for (int k = 0; k != length; ++k) {
+		str.push_back(rand() % 26 + 65);
+	}
+}
+
+void transfer(std::string& dest, std::string& source) {
+	size_t length = std::min(dest.size(), source.size());
+
+	for (int k = 0; k != length; ++k) {
+		dest.push_back(source[length - 1 - k]);
+		source.pop_back();
+	}
+
+}
+
+int main() {
+	std::string str;
+	std::string str2;
+	std::thread thr(make_string, std::ref(str), 100);
+// to be completed
+
+
+	return 0;
+}
+
+#endif // EXEMPLE9
+
+
+
+
+
+
+
+
+
+
+#ifdef EXEMPLE8
+//////////////////////////////////////////////////////////////////////////////////////////////////////////
+// 
+//    OWNER OF THREAD MOVING.
+// 
+//////////////////////////////////////////////////////////////////////////////////////////////////////////
+
+std::mutex io_mutex;
+void f(std::string_view name) {
+	{   // effect without parathesis and with 
+		// get lock entire code but with parenthesis only print will lock.
+		std::lock_guard<std::mutex> lg(io_mutex);
+		print_ << name << " thread id " << thread_id << end_;
+	}
+	Sleep(Seconds(1));
+}
+
+int main() {
+	std::thread thr1(f, "one");
+	std::thread thr2(f, "two");
+	std::thread thr;
+
+	Sleep(Seconds(3));
+	thr = std::move( thr2);
+	//thr2 = std::thread([] {
+	//	print_ << "new thread " << thread_id << end_;
+	//	});
+
+	thr.join();
+	thr2.join();
+	thr1.join();
+	print_ << "------------ End -------------\n";
+	return 0;
+}
+
+
+
+
+
+
+#endif // EXEMPLE8
+
+
+
+
+
+
+
+
+
+
+#ifdef EXEMPLE7
+//////////////////////////////////////////////////////////////////////////////////////////////////////////
+// 
+//    MUTEX AND LOCK GUARD.
+// 
+//////////////////////////////////////////////////////////////////////////////////////////////////////////
+std::mutex io_mutex;
+void f(std::string_view name) {
+	{   // effect without parathesis and with 
+		// get lock entire code but with parenthesis only print will lock.
+		std::lock_guard<std::mutex> lg(io_mutex);
+		print_ << name << " thread id " << thread_id << end_;
+	}
+	Sleep(Seconds(1));
+}
+
+int main() {
+	std::thread thr1(f, "one");
+	std::thread thr2(f, "two");
+
+
+	thr2.join();
+	thr1.join();
+	print_ << "------------ End -------------\n";
+	return 0;
+}
+
+
+
+#endif // EXEMPLE7
+
+
+
+#ifdef TEXT_EDITOR
+
+//////////////////////////////////////////////////////////////////////////////////////////////////////////
+// 
+//    Making very tiny text editor -- 
+//    
+// 
+//////////////////////////////////////////////////////////////////////////////////////////////////////////
+// data
+std::string buffer;
+std::vector<std::string> vBuffers;
+// print date in screen 
+void print_date_at(int x, int y) {
+	while (true) {
+		if (stop) break;
+		date = std::chrono::floor<std::chrono::seconds>(now_time);
+		synprint_ << MOVETO(x, y) << "Date : [" << date << "]";
+		Sleep(Seconds(1));
+		synprint_ << MOVETO(x, y) << ERASELINE;
+	}
+}
+
+void print_line_at(int line, int length = 65, char c = '-') {
+	std::string _line(length, c);
+	synprint_ << MOVETO(1, line) << _line;
+}
+
+// WE USE TWO GETCH() FUNCTION AS TWO THREADS
+void get_text(int x, int y, std::string& buffer, std::vector<std::string>& vBuffers) {
+	int c{};
+	while (true) {
+		if (stop) break;
+		c = _getch();
+		if (c == ESCAPE) stop = true;
+		if (c == CR) {
+			//vBuffers.push_back(buffer);
+			vBuffers.insert(vBuffers.begin(), buffer);
+			buffer.clear();
+			synprint_ << MOVETO(x, y) << ERASELINE;
+			for (int j = 0; j < 3; ++j)
+				synprint_ << MOVETO(2, 20 + j) << ERASELINE;
+			ERASE_AT(1, 30);
+		}
+		buffer.push_back(static_cast<char>(c));
+		synprint_ << MOVETO(x, y) << buffer;
+		synprint_ << MOVETO(1, 30) <<
+			CELL(7,left,"CR | ")<< CELL(3,right, buffer.size()) <<
+			CELL(12,right,"| Vsize | ")<< CELL(3,right, vBuffers.size());
+		//synprint_ << MOVETO(x, y) << ERASELINE;
+	}
+}
+
+int main() {
+	std::string buffer2;
+	std::vector<std::string> vBuffers2;
+
+	print_line_at(2);
+	print_line_at(4);
+	print_line_at(6);
+	print_line_at(8);
+	std::thread thr1(print_date_at, 20, 1);
+	std::thread thr2(get_text, 1, 3, std::ref(buffer), std::ref(vBuffers));
+	std::thread thr3(get_text, 1, 5, std::ref(buffer2), std::ref(vBuffers2));
+
+	thr2.join();
+	thr1.join();
+	thr3.join();
+	
+	if (stop) {
+		esc::cls();
+		print_ << std::string(65,'-') << end_;
+		for (const auto& str : vBuffers)
+			print_ << str << end_;
+		print_ << std::string(65,'-') << end_;
+
+
+		print_ << std::string(65,'-') << end_;
+		for (const auto& str : vBuffers2)
+			print_ << str << end_;
+		print_ << std::string(65,'-') << end_;
+	}
+
+	return 0;
+}
+
+#endif // TEXT_EDITOR
+
 
 #ifdef EXEMPLE6
 //////////////////////////////////////////////////////////////////////////////////////////////////////////
