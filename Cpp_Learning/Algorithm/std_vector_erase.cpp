@@ -3,30 +3,41 @@
 
 #include <MyLib/random_generator.h>
 
+/*
+         in this exemple we creating 100 particule class 
+		 and check it if these particule contain in box of some dimension
+		 after we going to erase these particules from vector<particule>
+*/
+
 #define end_   '\n'
 #define wait_   std::cin.get()
 
+struct Stat {
+
+};
+
 struct Particule {
-	int  _id;
-	float x;
-	float y;
 
-	Particule() :_id{}, x{}, y{} {}
+	Stat&    m_stat;
 
+	int     _id;
+	float     x;
+	float     y;
 
-	Particule(float _x , float _y , int id = 0) 
-		: _id{id}, x{_x}, y{_y}
+	Particule(Stat& __stat, float _x , float _y , int id = 0 ) 
+		:m_stat{ __stat }, 
+		_id { id}, x{ _x }, y{ _y }
 	{}
 
 };
 
 template<typename P>
-void create_100_particules(std::vector<P>&  vec) {
+void create_100_particules(std::vector<P>&  vec, Stat& __stat) {
 	vec.reserve(110);
 	rng::fRG<float> frand;
 	for (int i = 0; i < 100; ++i)
 	{
-		vec.push_back(P{frand(0.f,100.f), frand(0.f,100.f) , i });
+		vec.push_back(P{__stat, frand(0.f,100.f), frand(0.f,100.f) , i });
 	}
 }
 
@@ -63,10 +74,10 @@ int numbers_particule_in_box(std::vector<Particule>& vecp, Box<float>& box) {
 
 
 int main() {
-
+	Stat  stat;
 	std::vector<Particule> vec;
 
-	create_100_particules(vec);
+	create_100_particules(vec, stat);
 
 	std::cout << "capacity of vector : " << vec.capacity() << end_;
 	std::cout << "size of vector : " << vec.size() << end_;
@@ -83,7 +94,7 @@ int main() {
 	while (numbers_particule_in_box(vec, box) == 0) {
 		++times_0;
 		vec.clear();
-		create_100_particules(vec);
+		create_100_particules(vec,stat);
 		std::cout << "times : " << times_0 << end_;
 		std::cin.get();
 	}
