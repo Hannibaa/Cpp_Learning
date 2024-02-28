@@ -3,7 +3,51 @@
 #include "MyLib/container_utility.h"
 #include "MyLib/Console_Library/escape_code.h"
 
+#define __exemple_2_ 
 
+
+// second exemple 
+#ifdef __exemple_2_
+
+template<typename T>
+T summation(std::span<T> vec) {
+	T sum{};
+	for (auto&& e : vec)
+		sum += e;
+
+	return sum;
+}
+
+int main() {
+
+	std::vector<int>  vi{ 1,2,3,4,5 };
+	std::vector<float> vf{ 2.2f, 1.1f, 3.3f };
+	std::array<short, 3> vs{ 3 , 2 , 1 };
+	std::array<int, 2> ai{ 4,7 };
+	int64_t si64[4]{ 3,4,1,1 };
+
+	int* pi = new int[4] {3, 3, 1, 1};
+
+	Print_(color::Green, "First integer summation ") << summation<int>(vi) << end_;
+	Print_(color::Fuchsia, "Second flaot summation ") << summation<float>(vf) << end_;
+	Print_(color::Red, "Third short summation in array ") << summation<short>(vs) << end_;
+	Print_(color::Grey, "Forth C array ") << summation<int64_t>(si64) << end_;
+	Print_(color::Grey19, "Sixth array ") << summation<int>(ai) << end_;
+	//Print_(color::Silver, "Fifth C heap array") << summation<int>(pi) << end_;  
+
+	delete[] pi;
+	return 0;
+}
+
+#endif __exemple_2_ // __exemple_2_
+
+
+
+
+
+
+// first exemple
+#ifdef __exemple_1_
 
 template<typename T>
 void print_vec(std::span<T> container, std::string_view comment) {
@@ -42,3 +86,5 @@ int main()
 	std::cin.get();
 	return 0;
 }
+
+#endif  // __exemple_1_
