@@ -7,13 +7,16 @@
 
 
 #include <algorithm>
+#include <functional>
 #include "MyLib/Headers/concurrency_utility.hpp"
 
 std::chrono::sys_seconds date = std::chrono::floor<std::chrono::seconds>(now_time);
 
+#define  DATE               std::chrono::floor<std::chrono::seconds>(now_time)
+#define  ERASE_AT(x,y)      synprint_ << MOVETO(x, y) << ERASELINE
+
 bool stop = false;
 
-#define ERASE_AT(x,y)      synprint_ << MOVETO(x, y) << ERASELINE
 
 // stoper function that change the stat of stop to true if pressed some char
 
@@ -30,13 +33,52 @@ void thread_stoper(char c = 'q') {
 	t.detach();
 }
 
-#define EXEMPLE9
+#define EXEMPLE10
+
+#ifdef EXEMPLE10
+
+
+int main() {
+
+	Print_(color::Green, "today : ") << date << end_;
+	thread_stoper();
+
+	while (!stop) {
+		print_ << MOVETO(2,5) << DATE << end_;
+	}
+
+	wait_;
+	print_ << "program end..." << end_;
+	return 0;
+}
+
+
+
+
+#endif // EXEMPLE10
 
 
 #ifdef EXEMPLE9
 
+std::mutex mtx;
+
 void make_string(std::string& str, int length) {
 	for (int k = 0; k != length; ++k) {
+		std::lock_guard<std::mutex> lock(mtx);
+		str.push_back(rand() % 26 + 65);
+	}
+}
+
+void make_string1(std::string& str, char c, int length) {
+	for (int i = 0; i != length; ++i) {
+		std::lock_guard lock(mtx);
+		str.push_back(c);
+	}
+}
+
+void make_string2(std::string& str, int length) {
+	for (int k = 0; k != length; ++k) {
+		std::scoped_lock scp_lock(mtx);
 		str.push_back(rand() % 26 + 65);
 	}
 }
@@ -51,12 +93,26 @@ void transfer(std::string& dest, std::string& source) {
 
 }
 
-int main() {
-	std::string str;
-	std::string str2;
-	std::thread thr(make_string, std::ref(str), 100);
-// to be completed
+void f(std::string& str, int n_threads, int length) {
+	std::vector<std::thread> vthreads;
 
+	int l = length / n_threads;
+
+	for (int i = 0; i != n_threads; ++i) {
+		vthreads.push_back(std::thread(make_string1, std::ref(str), rand()%26 + 65, l));
+	}
+
+	for (auto& e : vthreads) e.join();
+}
+
+int main() {
+
+	Print_(color::Green, "Pass reference to thread") << end_;
+	std::string str;
+
+	f(str, 10, 1000);
+
+	print_ << "string : " << str.size() << " : " << str << end_;
 
 	return 0;
 }
