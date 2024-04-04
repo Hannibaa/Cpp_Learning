@@ -49,13 +49,19 @@ int main() {
 	vec.emplace_back("another", 3, 3);
 
 	map["second"] = vec;
+	
 
 
 	print_map("first", map);
 	print_ << "------------------------------------------------" << end_;
 	print_map("second", map);
 	print_ << "size of map " << map.size() << end_;
+
+	map["third"].emplace_back("hi", 20, 40);
+	map["third"].emplace_back("he", 4, 4);
+	map["forth"] = VecImage{};
 	print_map("third", map);
+	print_map("forth", map);
 
 	print_ << "size of map " << map.size() << end_;
 
