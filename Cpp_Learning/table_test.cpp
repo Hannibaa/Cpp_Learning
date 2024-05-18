@@ -1,18 +1,25 @@
 #include <iostream>
+#include <Windows.h>
 #include "MyLib/Console_Library/tables.h"
 
 
 
 
 
-
 int main() {
+	// always set this function
+	SetGraphicConsoleMode();
 	// making style:
+	Print_(color::Green, "Call to graphic function") << end_;
+
+
 	auto stitle = table::make_style(color::Yellow, color::Grey39, 15, table_vline, table_vline);
 
-	table::MTable<int, float, char>  table(10, 10, "Drilling Parameters", stitle);
+	table::Table<int, float>  table(10, 10, "Drilling Parameters");
+	table.set_style_cell(stitle);
+	table.add_line(1, 100.f);
 
-
+	table.draw();
 
 
 	wait_;
