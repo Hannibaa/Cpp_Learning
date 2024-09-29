@@ -62,3 +62,5 @@
 /.vs/Cpp_Learning/v17/fileList.bin
 *.db
 *.sqlite
+*.db-shm
+*.db-wal
