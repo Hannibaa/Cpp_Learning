@@ -11,7 +11,7 @@ namespace file {
 	// modification of deque to be fixed with limited functions access
 
 	template<typename T, size_t Size>
-	class static_deque : std::deque<T>
+	class static_deque : public std::deque<T>
 	{
 		// deleting some function 
 		// or hiding by redefinintion 

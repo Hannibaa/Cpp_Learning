@@ -1,5 +1,5 @@
 #include <iostream>
-#include "MyLib/Console_Library/escape_code.h"
+#include <escape_code.h>
 
 /*
 	 BIT FIELD  C++

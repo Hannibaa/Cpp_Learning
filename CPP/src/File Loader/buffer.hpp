@@ -13,7 +13,7 @@ namespace file {
 	template<typename T>
 		requires std::is_pod_v<T>
 	struct Buffer : std::vector<T> {
-
+		using std::vector<T>::vector;
 	};
 
 
